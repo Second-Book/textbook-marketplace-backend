@@ -1,0 +1,38 @@
+[project]
+name = "textbook-marketplace"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "mrezvova", email = "rezvmaria@gmail.com" },
+]
+readme = "README.md"
+requires-python = "~=3.12"
+
+dependencies = [
+    "django==5.1.1",
+    "psycopg2-binary==2.9.9",
+    "django-cors-headers==4.4.0",
+    "django-filter==24.3",
+    "djangorestframework==3.15.2",
+    "pillow==11.0.0",
+    "django-allauth==65.2.0",
+    "djangorestframework-simplejwt==5.3.1",
+    "rest-framework-simplejwt==0.0.2",
+    "wheel==0.45.1",
+    "faker==35.0.0",
+    "django-versatileimagefield==3.1",
+    "python-magic-bin==0.4.14",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==7.2",
+    "pytest-django==4.8",
+    "black==23.3",
+    "flake8==6.0",
+    "isort==5.12",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
