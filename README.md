@@ -13,6 +13,7 @@ Quick manual:
 4) `export PATH="$HOME/.local/bin:$PATH"` for Linux
 5) `uv sync`
 6) `uv run python textbook_marketplace/manage.py migrate`
+   
 To start server:
 1) Setup database
 2) `uv run python textbook_marketplace/manage.py runserver`
