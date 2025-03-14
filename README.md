@@ -1,19 +1,39 @@
-# textbook-marketplace
+# textbook-marketplace-backend
 
-dimentions of img:
-240 * 312
-324 * 420
+### Quick manual:
 
+```
+git clone https://github.com/Second-Book/textbook-marketplace-backend.git
+```
+```
+cd textbook-marketplace-backend
+```
+### Download uv:
 
-Quick manual:
+#### For Linux
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+#### For Windows
+```
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+---
+### Add uv to PATH:
+#### For Linux
+   ```
+   export PATH="$HOME/.local/bin:$PATH"
+   ``` 
+#### For Windows
+`Environment Variables -> Add 'C:\Users\<your_user>\.local\bin' to Path`
 
-1) `git clone https://github.com/Second-Book/textbook-marketplace-backend.git`
-2) `cd textbook-marketplace-backend`
-3) `curl -LsSf https://astral.sh/uv/install.sh | sh` for Linux
-4) `export PATH="$HOME/.local/bin:$PATH"` for Linux
-5) `uv sync`
-6) `uv run python textbook_marketplace/manage.py migrate`
-   
-To start server:
-1) Setup database
-2) `uv run python textbook_marketplace/manage.py runserver`
+---
+```
+uv sync
+```
+```
+uv run python textbook_marketplace/manage.py migrate
+```
+```
+uv run python textbook_marketplace/manage.py runserver
+```
