@@ -32,6 +32,9 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 uv sync
 ```
 ```
+source .venv/bin/activate
+```
+```
 uv run python textbook_marketplace/manage.py migrate
 ```
 ```
