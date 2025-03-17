@@ -1,6 +1,9 @@
 #!/bin/bash
 
 : '
+This script creates fake users and fake textbooks. The amount of created units
+depends on provided argument.
+
 Usage example:
 bash gen_fake_data.sh 5
 '
