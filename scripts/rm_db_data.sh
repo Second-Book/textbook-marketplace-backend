@@ -47,6 +47,9 @@ echo "Cleaning marketplace_order table"
 RM_ROWS_ORDERS_RES=$(psql -h $DB_HOST -p $DB_PORT -d $DB_NAME -U $DB_USER -c "TRUNCATE TABLE marketplace_order CASCADE;")
 echo "$RM_RM_ROWS_ORDERS_RES"
 
+echo "Unsetting PGPASSWORD var..."
+unset PGPASSWORD
+
 echo "Cleaning media folder from project..."
 
 media_path="../textbook_marketplace/media"
