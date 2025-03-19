@@ -8,6 +8,7 @@ Usage example:
 
 bash clean_and_gen.sh 5
 '
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 if [ -z "$1" ]; then
   echo "Error, provide amount of users and textbooks to generate."
@@ -16,7 +17,7 @@ fi
 
 count="$1"
 echo "Running script to delete data from db..."
-source rm_db_data.sh
+source "$SCRIPT_DIR/rm_db_data.sh"
 
 echo "Running script to generate new fake users and textbooks to db..."
-source gen_fake_data.sh "$count"
+source "$SCRIPT_DIR/gen_fake_data.sh" "$count"

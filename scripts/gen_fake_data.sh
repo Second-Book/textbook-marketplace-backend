@@ -14,9 +14,11 @@ if [ -z "$1" ]; then
 fi
 
 count="$1"
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 echo "Generating fake users..."
-uv run python ../textbook_marketplace/manage.py generate_fake_users $count
+
+uv run python "$SCRIPT_DIR/../textbook_marketplace/manage.py" generate_fake_users $count
 
 echo "Generating fake textbooks..."
-uv run python ../textbook_marketplace/manage.py generate_fake_textbooks $count
+uv run python "$SCRIPT_DIR/../textbook_marketplace/manage.py" generate_fake_textbooks $count

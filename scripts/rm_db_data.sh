@@ -9,8 +9,9 @@ Usage example:
 
 bash rm_db_data.sh
 '
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-env_path="../.env"
+env_path="$SCRIPT_DIR/../.env"
 
 if [ -f "$env_path" ]; then
   source "$env_path"
@@ -52,7 +53,7 @@ unset PGPASSWORD
 
 echo "Cleaning media folder from project..."
 
-media_path="../textbook_marketplace/media"
+media_path="$SCRIPT_DIR/../textbook_marketplace/media"
 
 if [ -d "$media_path" ]; then
   rm -r "$media_path"
