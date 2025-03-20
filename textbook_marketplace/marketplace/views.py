@@ -1,12 +1,22 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
 from rest_framework import status, viewsets, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import action, api_view
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework.permissions import (
+    IsAuthenticated,
+    BasePermission,
+    SAFE_METHODS,
+)
 
 from .models import Textbook, User, Order
-from .serializers import TextbookSerializer, SignupSerializer, CustomTokenObtainPairSerializer, UserSerializer, OrderSerializer
+from .serializers import (
+    TextbookSerializer,
+    SignupSerializer,
+    UserSerializer,
+    OrderSerializer,
+)
 
 
 class IsAuthenticatedOrReadOnly(BasePermission):
@@ -34,6 +44,7 @@ class TextbookListView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class TextbookDetailView(APIView):
     def get_object(self, pk):
         try:
@@ -47,7 +58,8 @@ class TextbookDetailView(APIView):
             serializer = TextbookSerializer(textbook)
             return Response(serializer.data)
         return Response(status=status.HTTP_404_NOT_FOUND)
-        
+
+
 class TextbookImageView(APIView): 
     def get(self, request, pk): 
         textbook = Textbook.objects.get(pk=pk) 
@@ -84,10 +96,11 @@ class PersonalCabinetView(APIView):
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
+    serializer_class = TokenObtainPairSerializer
 
     def get_queryset(self):
         return User.objects.all()
+
 
 class TextbookViewSet(viewsets.ModelViewSet):
     queryset = Textbook.objects.all()
@@ -103,13 +116,16 @@ class TextbookViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
 
 @api_view(['GET'])
 def get_user_data(request):
@@ -118,6 +134,7 @@ def get_user_data(request):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
+
 class UserDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -125,4 +142,3 @@ class UserDetailView(APIView):
         user = request.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
-    
