@@ -3,7 +3,7 @@
 : '
 !Git Bash required!
 This script helps create superuser to get access to django admin panel.
-Credentials are taken from .env file:
+Credentials:
 username - root
 email - root@example.com
 
