@@ -61,11 +61,15 @@ class TextbookDetailView(APIView):
 
 
 class TextbookImageView(APIView): 
-    def get(self, request, pk): 
-        textbook = Textbook.objects.get(pk=pk) 
-        image = textbook.image 
-        return Response({'image': image.url})
-    
+    def get(self, request, pk):
+        try:
+            textbook = Textbook.objects.get(pk=pk)
+            image = textbook.image
+            return Response({'image': image.url})
+        except Textbook.DoesNotExist:
+            return Response({'error': 'No such textbook found.'},
+                            status=status.HTTP_404_NOT_FOUND)
+
 
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]
@@ -91,7 +95,7 @@ class PersonalCabinetView(APIView):
         pass
 
     def post(self, request):
-        
+
         pass
 
 
