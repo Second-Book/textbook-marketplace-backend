@@ -10,6 +10,8 @@ from rest_framework.permissions import (
     SAFE_METHODS,
 )
 
+from django.shortcuts import get_object_or_404
+
 from .models import Textbook, User, Order
 from .serializers import (
     TextbookSerializer,
@@ -46,29 +48,17 @@ class TextbookListView(APIView):
 
 
 class TextbookDetailView(APIView):
-    def get_object(self, pk):
-        try:
-            return Textbook.objects.get(pk=pk)
-        except Textbook.DoesNotExist:
-            return None
 
     def get(self, request, pk):
-        textbook = self.get_object(pk)
-        if textbook is not None:
-            serializer = TextbookSerializer(textbook)
-            return Response(serializer.data)
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        textbook = get_object_or_404(Textbook, pk=pk)
+        serializer = TextbookSerializer(textbook)
+        return Response(serializer.data)
 
 
 class TextbookImageView(APIView): 
     def get(self, request, pk):
-        try:
-            textbook = Textbook.objects.get(pk=pk)
-            image = textbook.image
-            return Response({'image': image.url})
-        except Textbook.DoesNotExist:
-            return Response({'error': 'No such textbook found.'},
-                            status=status.HTTP_404_NOT_FOUND)
+        textbook = get_object_or_404(Textbook, pk=pk)
+        return Response({'image': textbook.image.url})
 
 
 class ProtectedView(APIView):
@@ -91,11 +81,9 @@ class PersonalCabinetView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-
         pass
 
     def post(self, request):
-
         pass
 
 
