@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '[::1]', 'localhost', '192.168.0.44:8080', '127.0.
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -85,6 +86,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "textbook_marketplace.wsgi.application"
 
+ASGI_APPLICATION = "textbook_marketplace.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

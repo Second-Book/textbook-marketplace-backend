@@ -23,6 +23,7 @@ dependencies = [
     "django-versatileimagefield==3.1",
     "python-magic-bin==0.4.14 ; sys_platform == 'win32'",
     "python-decouple==3.8",
+    "channels[daphne]==4.2.0",
 ]
 
 [dependency-groups]
