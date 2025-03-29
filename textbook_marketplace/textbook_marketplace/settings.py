@@ -164,6 +164,16 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+# WebSocket connections storage
+CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [(config("REDIS_HOST"), config("REDIS_PORT"))],
+            },
+        },
+    }
+
 # This is where uploaded files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

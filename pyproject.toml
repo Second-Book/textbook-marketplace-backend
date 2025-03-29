@@ -24,6 +24,7 @@ dependencies = [
     "python-magic-bin==0.4.14 ; sys_platform == 'win32'",
     "python-decouple==3.8",
     "channels[daphne]==4.2.0",
+    "channels-redis==4.2.1",
 ]
 
 [dependency-groups]
