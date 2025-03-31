@@ -1,6 +1,7 @@
 from django.db import models
 from versatileimagefield.fields import VersatileImageField
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser
+
 
 class User(AbstractUser):
     # username = models.CharField(max_length=255, unique=True)
@@ -9,9 +10,11 @@ class User(AbstractUser):
     telegram_id = models.CharField(max_length=255, null=True, blank=True)
     telephone = models.CharField(max_length=255, null=True, blank=True)
     is_seller = models.BooleanField(default=False)  # To differentiate between buyers and sellers
-    is_active = models.BooleanField(default=True)  
+    is_active = models.BooleanField(default=True)
+
     def __str__(self):
         return self.username
+
 
 class Textbook(models.Model):
     title = models.CharField(max_length=255)
@@ -37,6 +40,7 @@ class Textbook(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Order(models.Model):
     textbook = models.ForeignKey(Textbook, on_delete=models.CASCADE)
