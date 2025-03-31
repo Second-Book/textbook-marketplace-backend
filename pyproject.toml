@@ -25,6 +25,8 @@ dependencies = [
     "python-decouple==3.8",
     "channels[daphne]==4.2.0",
     "channels-redis==4.2.1",
+    "django-channels-jwt-auth-middleware==1.0.0",
+    "gunicorn==21.2.0 ; os_name == 'posix'",
 ]
 
 [dependency-groups]
@@ -34,6 +36,8 @@ dev = [
     "black==23.3",
     "flake8==6.0",
     "isort==5.12",
+    "whitenoise==6.9.0",
+    "pytest-asyncio==0.23.8",
 ]
 
 [build-system]
