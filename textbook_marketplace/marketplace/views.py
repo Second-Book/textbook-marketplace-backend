@@ -11,8 +11,9 @@ from rest_framework.permissions import (
 )
 
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
 
-from .models import Textbook, User, Order
+from .models import Textbook, Order
 from .serializers import (
     TextbookSerializer,
     SignupSerializer,
@@ -91,7 +92,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
 
     def get_queryset(self):
-        return User.objects.all()
+        return get_user_model().objects.all()
 
 
 class TextbookViewSet(viewsets.ModelViewSet):
@@ -110,7 +111,7 @@ class TextbookViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
 
 
