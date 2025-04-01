@@ -138,6 +138,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -163,10 +167,6 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 # This is where uploaded files will be stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# This is the URL that serves the media files
-MEDIA_URL = '/media/'
 
 # AUTHENTICATION_BACKENDS = (
 #     'allauth.account.auth_backends.AuthenticationBackend',
@@ -193,3 +193,4 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
 VERSATILEIMAGEFIELD_SETTINGS = {
     'jpeg_resize_quality': 90,
 }
+
