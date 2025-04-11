@@ -2,13 +2,24 @@ from rest_framework import serializers
 
 from .models import Textbook, User, Order 
 from versatileimagefield.serializers import VersatileImageFieldSerializer
+from django.conf import settings
+
+
+class AbsoluteVersatileImageFieldSerializer(VersatileImageFieldSerializer):
+    def to_representation(self, value):
+        data = super().to_representation(value)
+        if isinstance(data, dict):
+            return {
+                key: f"{settings.MEDIA_HOST}{url}" if url.startswith("/media/") else url
+                for key, url in data.items()
+            }
+        return data
 
 
 class TextbookSerializer(serializers.ModelSerializer):
     seller = serializers.ReadOnlyField(source='seller.username')
-    image = VersatileImageFieldSerializer(
-        sizes='marketplace',
-    )
+    image = AbsoluteVersatileImageFieldSerializer(sizes='marketplace')
+
 
     class Meta:
         model = Textbook
@@ -45,3 +56,4 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
