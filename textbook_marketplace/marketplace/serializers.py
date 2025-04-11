@@ -3,6 +3,7 @@ from rest_framework import serializers
 from .models import Textbook, User, Order 
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 from django.conf import settings
+from urllib.parse import urljoin
 
 
 class AbsoluteVersatileImageFieldSerializer(VersatileImageFieldSerializer):
@@ -10,7 +11,7 @@ class AbsoluteVersatileImageFieldSerializer(VersatileImageFieldSerializer):
         data = super().to_representation(value)
         if isinstance(data, dict):
             return {
-                key: f"{settings.MEDIA_HOST}{url}" if url.startswith("/media/") else url
+                key: urljoin(settings.MEDIA_HOST, url)
                 for key, url in data.items()
             }
         return data
