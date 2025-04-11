@@ -142,7 +142,7 @@ STATIC_ROOT = config('STATIC_ROOT', default=os.path.join(BASE_DIR, 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_HOST = os.getenv("MEDIA_HOST", "http://127.0.0.1:8000")
+MEDIA_HOST = config("MEDIA_HOST", default="http://127.0.0.1:8000")
 
 
 # Default primary key field type
