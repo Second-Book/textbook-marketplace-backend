@@ -6,6 +6,9 @@ from .models import Textbook, Order
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 
+User = get_user_model()
+
+
 class TextbookSerializer(serializers.ModelSerializer):
     seller = serializers.ReadOnlyField(source='seller.username')
     image = VersatileImageFieldSerializer(
@@ -31,12 +34,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ['username', 'email', 'password']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = get_user_model().objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
         return user
 
 

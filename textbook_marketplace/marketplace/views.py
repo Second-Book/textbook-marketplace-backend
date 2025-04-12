@@ -22,6 +22,9 @@ from .serializers import (
 )
 
 
+User = get_user_model()
+
+
 class IsAuthenticatedOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
@@ -92,7 +95,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
 
     def get_queryset(self):
-        return get_user_model().objects.all()
+        return User.objects.all()
 
 
 class TextbookViewSet(viewsets.ModelViewSet):
@@ -111,7 +114,7 @@ class TextbookViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = get_user_model().objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
