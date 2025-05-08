@@ -2,12 +2,17 @@ import os
 import random
 from django.core.management.base import BaseCommand
 from faker import Faker
-from marketplace.models import Textbook, User
+from marketplace.models import Textbook
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.core.exceptions import SuspiciousFileOperation
 from django.utils.text import slugify
 from django.core.files.storage import default_storage
+
+
+User = get_user_model()
+
 
 class Command(BaseCommand):
     help = 'Generate fake textbooks with images from the sample_images folder and save them in the media directory'
