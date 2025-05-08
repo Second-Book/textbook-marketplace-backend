@@ -1,8 +1,9 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from django.contrib.auth import get_user_model
 
-from .models import Textbook, Order
+from .models import Textbook, Order, Report
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 
@@ -28,7 +29,7 @@ class TextbookSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = '__all__'
 
 
@@ -50,3 +51,23 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+
+class ReportSerializer(serializers.ModelSerializer):
+    user_reported = serializers.CharField()
+    topic = serializers.CharField()
+    description = serializers.CharField()
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        user = request.user
+        reported_username = validated_data.pop('user_reported', '')
+        reported_user = get_object_or_404(User, username=reported_username)
+        report = Report.objects.create(
+            user=user, user_reported=reported_user, **validated_data
+        )
+        return report
+
+    class Meta:
+        model = Report
+        fields = ['user_reported', 'topic', 'description', 'created_at']
