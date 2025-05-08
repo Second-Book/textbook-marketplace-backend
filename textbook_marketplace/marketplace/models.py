@@ -1,9 +1,10 @@
 from django.db import models
 from versatileimagefield.fields import VersatileImageField
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, AnonymousUser
 
 
 class User(AbstractUser):
+    """ Model for users. """
     # username = models.CharField(max_length=255, unique=True)
     # groups = models.ManyToManyField(Group, related_name='marketplace_user_set')
     # user_permissions = models.ManyToManyField(Permission, related_name='marketplace_user_permissions_set')
@@ -17,6 +18,7 @@ class User(AbstractUser):
 
 
 class Textbook(models.Model):
+    """ Model for textbooks. """
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     school_class = models.CharField(max_length=50) 
@@ -46,4 +48,29 @@ class Order(models.Model):
     textbook = models.ForeignKey(Textbook, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     order_date = models.DateTimeField(auto_now_add=True)
-    
+
+
+class Block(models.Model):
+    """Model for blocking system."""
+    initiator_user = models.ForeignKey(User,
+                                       related_name='block_initiator',
+                                       on_delete=models.CASCADE)
+    blocked_user = models.ForeignKey(User,
+                                     related_name='block_receiver',
+                                     on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('initiator_user', 'blocked_user')
+
+
+class Report(models.Model):
+    """ Model for report system. """
+    user = models.ForeignKey(User,
+                             related_name='report_author',
+                             on_delete=models.CASCADE)
+    user_reported = models.ForeignKey(User,
+                                      related_name='reported_user',
+                                      on_delete=models.SET(AnonymousUser.id))
+    topic = models.CharField(max_length=50, blank=False, null=False)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
