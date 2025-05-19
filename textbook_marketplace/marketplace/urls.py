@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
 )
 
 from .views import (
-    TextbookListView,
+    TextbookListViewSet,
     TextbookDetailView,
     TextbookImageView,
     ProtectedView,
@@ -20,7 +20,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path('textbooks/', TextbookListView.as_view(), name='textbook-list'),
+    path('textbooks/', TextbookListViewSet.as_view({'get': 'list'}), name='textbook-list'),
     path('textbook/<int:pk>/', TextbookDetailView.as_view(), name='textbook-detail'),
     path('textbook/<int:pk>/image/', TextbookImageView.as_view()),
     path('textbook/create/', TextbookViewSet.as_view({'post': 'create'}), name='textbook-create'),
