@@ -19,6 +19,14 @@ class User(AbstractUser):
 
 class Textbook(models.Model):
     """ Model for textbooks. """
+
+    CONDITION_CHOICES = [
+        ('New', 'New'),
+        ('Used - Excellent', 'Used - Excellent'),
+        ('Used - Good', 'Used - Good'),
+        ('Used - Fair', 'Used - Fair'),
+    ]
+
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     school_class = models.CharField(max_length=50) 
@@ -30,12 +38,7 @@ class Textbook(models.Model):
     viber_contact = models.CharField(max_length=100, blank=True, null=True)
     telegram_contact = models.CharField(max_length=100, blank=True, null=True)
     phone_contact = models.CharField(max_length=100, blank=True, null=True)
-    condition = models.CharField(max_length=50, choices=[
-        ('New', 'New'),
-        ('Used - Excellent', 'Used - Excellent'),
-        ('Used - Good', 'Used - Good'),
-        ('Used - Fair', 'Used - Fair'),
-    ], default='Used - Good')
+    condition = models.CharField(max_length=50, choices=CONDITION_CHOICES, default='Used - Good')
     image = VersatileImageField(upload_to='textbook_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)  
     updated_at = models.DateTimeField(auto_now=True) 
