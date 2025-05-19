@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status, viewsets, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -21,6 +22,7 @@ from .serializers import (
     OrderSerializer,
     ReportSerializer,
 )
+from .filters import TextbookFilter
 
 User = get_user_model()
 
@@ -36,29 +38,10 @@ class IsAuthenticatedOrReadOnly(BasePermission):  # TODO DELETE THIS
         return request.user.is_authenticated
 
 
-class TextbookListView(APIView):
-    """ View for retrieving Textbook objects from db and returning to user. """
-    def get(self, request):
-        """ Returns list of textbooks based on provided query parameters."""
-        # TODO add support for more parameters
-        username = request.query_params.get('username', None)
-        if username:
-            textbooks = Textbook.objects.filter(seller__username=username)
-        else:
-            textbooks = Textbook.objects.all()
-
-        serializer = TextbookSerializer(textbooks, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    # TODO decide what to do with this redundant method because TextbookViewSet
-    #  is used to create textbooks (see in marketplace/urls.py)
-    def post(self, request):
-        """ Method to create a textbook. """
-        serializer = TextbookSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(seller=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class TextbookListViewSet(ModelViewSet):
+    queryset = Textbook.objects.all()
+    serializer_class = TextbookSerializer
+    filterset_class = TextbookFilter
 
 
 class TextbookDetailView(APIView):
