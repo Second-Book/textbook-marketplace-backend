@@ -31,6 +31,7 @@ class Textbook(models.Model):
     author = models.CharField(max_length=255)
     school_class = models.CharField(max_length=50) 
     publisher = models.CharField(max_length=255)
+    subject = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="textbooks")
     description = models.TextField(blank=True)

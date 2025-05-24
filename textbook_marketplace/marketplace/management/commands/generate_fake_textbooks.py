@@ -55,6 +55,10 @@ class Command(BaseCommand):
             author = fake.name()  # Случайное имя автора
             school_class = f'{random.randint(1, 11)}'  # Случайный класс от 1 до 11
             publisher = fake.company()  # Генерация названия издательства
+            subject = random.choice(
+                ['Mathematics', 'Serbian', 'English', 'History', 'Biology',
+                 'Geography', 'Physics', 'Chemistry']
+            )
             price = random.uniform(5, 100)  # Случайная цена учебника
             seller = random.choice(users)  # Случайный продавец
             description = fake.text()  # Описание учебника
@@ -87,6 +91,7 @@ class Command(BaseCommand):
                         author=author,
                         school_class=school_class,
                         publisher=publisher,
+                        subject=subject,
                         price=price,
                         seller=seller,
                         description=description,

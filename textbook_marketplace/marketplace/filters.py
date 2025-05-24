@@ -9,7 +9,11 @@ class TextbookFilter(django_filters.FilterSet):
                                       label='Search')
     author = django_filters.CharFilter(lookup_expr='icontains',
                                        label='Author')
+    publisher = django_filters.CharFilter(lookup_expr='icontains',
+                                          label='Publisher')
     school_class = django_filters.CharFilter(label='Grade')
+    subject = django_filters.CharFilter(lookup_expr='icontains',
+                                        label='Subject')
     min_price = django_filters.NumberFilter(field_name='price',
                                             lookup_expr='gte',
                                             label='Minimal price')
@@ -23,8 +27,8 @@ class TextbookFilter(django_filters.FilterSet):
 
     class Meta:
         model = Textbook
-        fields = ['query', 'author', 'school_class',
-                  'price', 'condition', 'seller']
+        fields = ['query', 'author', 'publisher', 'school_class',
+                  'subject', 'price', 'condition', 'seller']
 
     def in_title_or_desc(self, queryset, name, value):
         return queryset.filter(
